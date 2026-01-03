@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>苏姑娘の生日祝福</title>
+    <style>
+        :root {
+            --pink: #ff69b4;
+            --gold: #ffd700;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #a1c4fd);
+            font-family: 'Comic Sans MS', cursive;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            perspective: 1000px;
+        }
+
+        .birthday-card {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            transform-origin: center;
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        .flipped {
+            transform: rotateY(180deg);
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--pink);
+            text-shadow: 2px 2px 0 var(--gold);
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .cake {
+            width: 150px;
+            margin: 10px 0;
+            filter: drop-shadow(0 5px 3px rgba(0, 0, 0, 0.3));
+        }
+
+        .message {
+            font-size: 1.2rem;
+            color: #666;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .open-btn {
+            background-color: var(--pink);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 10px;
+        }
+
+        .open-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: explode 1.5s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(15);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="birthday-card" id="card">
+        <!-- 卡片正面 -->
+        <div class="card-front">
+            <h1>Happy Birthday! 🎉</h1>
+            <img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" class="cake" alt="生日蛋糕">
+            <p class="message">点击打开神秘祝福</p>
+            <button class="open-btn" onclick="openCard()">打开祝福</button>
+        </div>
+
+        <!-- 卡片背面 -->
+        <div class="card-back">
+            <h1>🎉 苏姑娘の躺赢秘籍 🎉</h1>
+            <div class="message">
+                <p>奉天承运，锦鲤诏曰：</p>
+                <p>特封苏姑娘为：</p>
+                <p>🏆 <span class="highlight">不劳而获</span> 首席体验官</p>
+                <p>🎖️ <span class="highlight">坐享其成</span> 终身成就者</p>
+                <p>🏅 <span class="highlight">无功受禄</span> 特级受益人</p>
+                <p>🌟 躺赢界永久VIP 🌟</p>
+            </div>
+            <button class="open-btn" onclick="closeCard()">返回封面</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openCard() {
+        const card = document.getElementById('card');
+        card.classList.add('flipped');
+        launchFireworks();
+    }
+
+    function closeCard() {
+        const card = document.getElementById('card');
+        card.classList.remove('flipped');
+    }
+
+    function launchFireworks() {
+        for (let i = 0; i < 20; i++) {
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            firework.style.left = Math.random() * 100 + '%';
+            firework.style.top = Math.random() * 100 + '%';
+            document.body.appendChild(firework);
+
+            setTimeout(() => {
+                firework.remove();
+            }, 1500);
+        }
+
+        new Audio('https://actions.google.com/sounds/v1/cartoon/clown_horn.ogg').play();
+    }
+</script>
+</body>
+
+</html>
